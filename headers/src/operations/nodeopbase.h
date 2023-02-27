@@ -1,4 +1,9 @@
+#ifndef MDG_OPERATIONS_NODEOPBASE_H
+#define MDG_OPERATIONS_NODEOPBASE_H
+
 namespace mdg {
+
+/* ============================ PUBLIC INTERFACE =========================== */
 
 /// @brief A lightweight object for node access with pointer semantics and some
 ///        additional methods for graph topology access
@@ -29,8 +34,25 @@ class NodeOpBase {
   /// @throws
   const node_type* operator->() const;
 
- private:
+ protected:
   int m_index;
   graph_type& m_graph;
 };
 }  // namespace mdg
+
+/* ============================ IMPLEMENTATIONS ============================ */
+namespace mdg {
+
+template <typename Derived>
+typename NodeOpBase<Derived>::node_type& NodeOpBase<Derived>::operator*() {
+  return details::NodeOpImpl<Derived>::deref(this);
+}
+
+template <typename Derived>
+const typename NodeOpBase<Derived>::node_type& NodeOpBase<Derived>::operator*()
+    const {
+  return details::NodeOpImpl<Derived>::deref(this);
+}
+
+}  // namespace mdg
+#endif  // MDG_OPERATIONS_NODEOPBASE_H

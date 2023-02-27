@@ -5,6 +5,7 @@ template <typename GraphType>
 struct nodeop_traits<UndirectedNodeOp<GraphType>> {
   typedef GraphType graph_t;
   typedef typename traits<GraphType>::node_t node_t;
+  typedef typename traits<GraphType>::edge_t edge_t;
 };
 }  // namespace internal
 
@@ -21,12 +22,23 @@ class UndirectedNodeOp : public NodeOpBase<UndirectedNodeOp<GraphType>> {
   using Base::operator*;
   using Base::operator->;
 };
+}  // namespace mdg
 
 /* ================== BASE CLASS METHODS IMPLEMENTATIONS ================= */
+namespace mdg {
+namespace details {
 template <typename GraphType>
-typename NodeOpBase<UndirectedNodeOp<GraphType>>::node_type&
-NodeOpBase<UndirectedNodeOp<GraphType>>::operator*(int index) {
-  return node_type();
-}
+struct NodeOpImpl<UndirectedNodeOp<GraphType>> {
+  static typename UndirectedNodeOp<GraphType>::node_type& deref(
+      typename UndirectedNodeOp<GraphType>::Base* ptr) {
+    return UndirectedNodeOp<GraphType>::node_type();
+  }
 
+  static const typename UndirectedNodeOp<GraphType>::node_type& deref(
+      const typename UndirectedNodeOp<GraphType>::Base* ptr) {
+    return UndirectedNodeOp<GraphType>::node_type();
+  }
+};
+
+}  // namespace details
 }  // namespace mdg

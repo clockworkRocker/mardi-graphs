@@ -41,4 +41,9 @@ class DirectedNodeOp;
 template <typename GraphType>
 class EdgeOp;
 
+namespace details {
+template <typename OpType>
+struct NodeOpImpl;
+}
+
 }  // namespace mdg
