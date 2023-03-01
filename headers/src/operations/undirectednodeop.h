@@ -5,6 +5,7 @@ template <typename GraphType>
 struct nodeop_traits<UndirectedNodeOp<GraphType>> {
   typedef GraphType graph_t;
   typedef typename traits<GraphType>::node_t node_t;
+  typedef typename traits<GraphType>::nodeset_t nodeset_t;
   typedef typename traits<GraphType>::edge_t edge_t;
 };
 }  // namespace internal

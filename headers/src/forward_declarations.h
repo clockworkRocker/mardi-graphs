@@ -28,6 +28,13 @@ class Digraph;
 template <typename NodeType, typename EdgeType>
 class ObjectDigraph;
 
+/* ============================== SETS TYPES =============================== */
+template <typename GraphType>
+class NodeSetOp;
+
+template <typename GraphType>
+class EdgeSetOp;
+
 /* ============================ OPERATION TYPES ============================ */
 template <typename Derived>
 class NodeOpBase;
@@ -41,6 +48,7 @@ class DirectedNodeOp;
 template <typename GraphType>
 class EdgeOp;
 
+/* ============================= DETAIL TYPES ============================== */
 namespace details {
 template <typename OpType>
 struct NodeOpImpl;

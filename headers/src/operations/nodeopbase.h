@@ -13,6 +13,7 @@ class NodeOpBase {
  public:  // * -------- Types --------
   typedef typename internal::nodeop_traits<Derived>::graph_t graph_type;
   typedef typename internal::nodeop_traits<Derived>::node_t node_type;
+  typedef typename internal::nodeop_traits<Derived>::edge_t edge_type;
 
  public:  // * -------- Constructors -------- *
   NodeOpBase(graph_type& graph, int index = -1);
