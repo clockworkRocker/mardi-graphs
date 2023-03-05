@@ -1,6 +1,8 @@
 #ifndef MDG_OPERATIONS_NODEOPBASE_H
 #define MDG_OPERATIONS_NODEOPBASE_H
 
+#define THE_GRAPH_CLASS_SHOULD_BE_DERIVED_FROM_MDGBASE 1
+
 namespace mdg {
 
 /* ============================ PUBLIC INTERFACE =========================== */
@@ -35,6 +37,10 @@ class NodeOpBase {
   /// @throws
   const node_type* operator->() const;
 
+ public:  // * -------- Information methods -------- *
+  /// @brief Get the degree of the node (the number of nodes it is connected to)
+  int degree() const;
+
  protected:
   int m_index;
   graph_type& m_graph;
@@ -46,13 +52,27 @@ namespace mdg {
 
 template <typename Derived>
 typename NodeOpBase<Derived>::node_type& NodeOpBase<Derived>::operator*() {
-  return details::NodeOpImpl<Derived>::deref(this);
+  static_assert(THE_GRAPH_CLASS_SHOULD_BE_DERIVED_FROM_MDGBASE &&
+                internal::traits<graph_type>::isMardiGraph);
+  return m_graph.nodeData(m_index);
 }
 
 template <typename Derived>
 const typename NodeOpBase<Derived>::node_type& NodeOpBase<Derived>::operator*()
     const {
-  return details::NodeOpImpl<Derived>::deref(this);
+  static_assert(THE_GRAPH_CLASS_SHOULD_BE_DERIVED_FROM_MDGBASE &&
+                internal::traits<graph_type>::isMardiGraph);
+
+  return m_graph.nodeData(m_index);
+}
+
+template <typename Derived>
+inline typename NodeOpBase<Derived>::node_type*
+NodeOpBase<Derived>::operator->() {
+  static_assert(THE_GRAPH_CLASS_SHOULD_BE_DERIVED_FROM_MDGBASE &&
+                internal::traits<graph_type>::isMardiGraph);
+
+  return nullptr;
 }
 
 }  // namespace mdg

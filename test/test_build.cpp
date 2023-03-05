@@ -2,11 +2,13 @@
 #include "src/util/graphtraits.h"
 #include "src/util/nodeoptraits.h"
 #include "src/mdgbase.h"
+#include "src/directedbase.h"
 #include "src/operations/nodeopbase.h"
 #include "src/operations/undirectednodeop.h"
 #include "src/operations/directednodeop.h"
 
 #include <iostream>
+#include <string>
 #include <typeinfo>
 
 using namespace mdg;
@@ -16,22 +18,16 @@ class MyGraphType;
 namespace mdg {
 namespace internal {
 template <>
-struct traits<MyGraphType> {
-  typedef int node_t;
-  typedef DirectedNodeOp<MyGraphType> nodeop_t;
-  typedef NodeSetOp<MyGraphType> nodeset_t;
+struct traits<MyGraphType> : public traits<DirectedBase<MyGraphType>> {
+  typedef std::string node_t;
+  typedef UndirectedNodeOp<MyGraphType> nodeop_t;
   typedef int edge_t;
   typedef EdgeOp<MyGraphType> edgeop_t;
-  typedef EdgeSetOp<MyGraphType> edgeset_t;
-
-  static constexpr bool isMDGBaseDerived = false;
-  static constexpr bool isDirectedBaseDerived = false;
-  static constexpr bool isUndirectedBaseDerived = false;
 };
 }  // namespace internal
 }  // namespace mdg
 
-class MyGraphType : public MDGBase<MyGraphType> {
+class MyGraphType : public DirectedBase<MyGraphType> {
  public:
   typedef MDGBase<MyGraphType> Base;
   using Base::edge_type;
@@ -42,12 +38,15 @@ class MyGraphType : public MDGBase<MyGraphType> {
   using Base::nodeset_type;
 
   using Base::derived;
+
+  MyGraphType() : MDGBase() {}
 };
 
 int main() {
-  DirectedNodeOp<MyGraphType> a(MyGraphType());
+  MyGraphType a;
+  // std::string data = a.nodeData(5);
 
-  std::cout << typeid(typename MyGraphType::nodeop_type).name() << "\n";
+  std::cout << internal::traits<MyGraphType>::isDirected << "\n";
 
   return 0;
 }

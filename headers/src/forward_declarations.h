@@ -21,7 +21,7 @@ template <typename NodeType, typename EdgeType>
 class ObjectGraph;
 
 template <typename Derived>
-class DirectedBased;
+class DirectedBase;
 
 class Digraph;
 

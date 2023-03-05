@@ -5,17 +5,9 @@
 namespace mdg {
 namespace internal {
 template <typename Derived>
-struct traits<MDGBase<Derived>> {
- public:  // * -------- Types -------- *
-  typedef typename traits<Derived>::node_t node_t;
-  typedef typename traits<Derived>::nodeop_t nodeop_t;
-  typedef typename traits<Derived>::nodeset_t nodeset_t;
-  typedef typename traits<Derived>::edge_t edge_t;
-  typedef typename traits<Derived>::edgeop_t edgeop_t;
-  typedef typename traits<Derived>::edgeset_t edgeset_t;
-
+struct traits<MDGBase<Derived>> : public baseTraits<Derived> {
  public:  // * -------- Compile-time traits -------- *
-  static constexpr bool isMDGDerived = true;
+  enum { isMardiGraph = true };
 };
 
 }  // namespace internal
@@ -58,6 +50,14 @@ class MDGBase {
   /// @brief Get a const node from the set V with a given index
   const nodeop_type node(int index) const;
 
+  /// @brief Get a reference to the object associated with the node with the
+  ///        given index
+  node_type& nodeData(int index);
+
+  /// @brief Get a const reference to the object associated with the node with
+  ///        the given index
+  const node_type& nodeData(int index) const;
+
   /// @brief Get an edge from the set E with a given index
   edgeop_type edge(int index);
 
@@ -74,9 +74,24 @@ class MDGBase {
   /// @brief Get the size of the set of edges
   int numEdges() const;
 
+ public:  // * -------- Editing methods -------- *
+  /**
+   * @brief Add a node to the graph
+   * @return The ID of the node created or -1 if creation fails
+   */
+  int addNode(const node_type& data);
+
+  /**
+   * @brief Construct a node in place and add it to the graph
+   * @tparam Args Arguments for the node data constructor
+   * @return The ID of the node created or -1 if creation fails
+   */
+  template <typename... Args>
+  int emplaceNode(Args... args);
+
  protected:  // * -------- Constructors -------- *
   /// @brief Create an empty graph
-  MDGBase();
+  MDGBase(){};
 
   /// @brief Copy a graph
   /// @tparam OtherDerived Another graph object type
@@ -114,6 +129,18 @@ template <typename Derived>
 inline const typename MDGBase<Derived>::nodeop_type MDGBase<Derived>::node(
     int index) const {
   return derived().node(index);
+}
+
+template <typename Derived>
+inline typename MDGBase<Derived>::node_type& MDGBase<Derived>::nodeData(
+    int index) {
+  return *(derived().node(index));
+}
+
+template <typename Derived>
+inline const typename MDGBase<Derived>::node_type& MDGBase<Derived>::nodeData(
+    int index) const {
+  return *(derived().node(index));
 }
 
 template <typename Derived>

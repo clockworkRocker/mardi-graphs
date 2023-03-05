@@ -32,12 +32,12 @@ template <typename GraphType>
 struct NodeOpImpl<UndirectedNodeOp<GraphType>> {
   static typename UndirectedNodeOp<GraphType>::node_type& deref(
       typename UndirectedNodeOp<GraphType>::Base* ptr) {
-    return UndirectedNodeOp<GraphType>::node_type();
+    return typename UndirectedNodeOp<GraphType>::node_type();
   }
 
   static const typename UndirectedNodeOp<GraphType>::node_type& deref(
       const typename UndirectedNodeOp<GraphType>::Base* ptr) {
-    return UndirectedNodeOp<GraphType>::node_type();
+    return typename UndirectedNodeOp<GraphType>::node_type();
   }
 };
 
