@@ -50,6 +50,10 @@ class MDGBase {
   /// @brief Get a const node from the set V with a given index
   const nodeop_type node(int index) const;
 
+  /// @brief Get the full set V
+  /// @return A set of lightweight wrapper objects for node manipulation
+  nodeset_type nodes();
+
   /// @brief Get a reference to the object associated with the node with the
   ///        given index
   node_type& nodeData(int index);
@@ -57,6 +61,11 @@ class MDGBase {
   /// @brief Get a const reference to the object associated with the node with
   ///        the given index
   const node_type& nodeData(int index) const;
+
+  /// @brief Get an edge between the two given nodes
+  /// @return The object to interact with the existing edge or a special
+  ///         NullEdge constant object if the edge doesn't exist
+  edgeop_type edge(int from, int to);
 
   /// @brief Get an edge from the set E with a given index
   edgeop_type edge(int index);
@@ -74,6 +83,12 @@ class MDGBase {
   /// @brief Get the size of the set of edges
   int numEdges() const;
 
+  /// @return The node object that is used to check for node existance
+  nodeop_type nullNode() const;
+
+  /// @brief The edge object that is used to check for edge existance
+  edgeop_type nullEdge() const;
+
  public:  // * -------- Editing methods -------- *
   /**
    * @brief Add a node to the graph
@@ -88,6 +103,15 @@ class MDGBase {
    */
   template <typename... Args>
   int emplaceNode(Args... args);
+
+ public:  // * ----------- Searches -------- *
+  /**
+   * @return An iterable object that walks the nodes of the graph from the given
+   *         starting node in DFS order
+   */
+  DFS<Derived> dfs(unsigned from = 0);
+
+  BFS<Derived> bfs(unsigned from = 0);
 
  protected:  // * -------- Constructors -------- *
   /// @brief Create an empty graph
@@ -153,6 +177,12 @@ template <typename Derived>
 inline const typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::edge(
     int index) const {
   return derived().edge(index);
+}
+
+template <typename Derived>
+inline typename MDGBase<Derived>::nodeop_type MDGBase<Derived>::nullNode()
+    const {
+  return nodeop_type(*this, -1);
 }
 
 }  // namespace mdg

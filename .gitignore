@@ -1,3 +1,8 @@
+# ---- IDE Files ---- #
+.vs/
+.vscode/
+.idea/
+
 # ---- Build files ---- #
 [Bb]uild/
 

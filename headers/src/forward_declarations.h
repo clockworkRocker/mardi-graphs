@@ -48,10 +48,17 @@ class DirectedNodeOp;
 template <typename GraphType>
 class EdgeOp;
 
+/* ============================= SEARCH TYPES ============================== */
+
+template <typename Derived>
+class GraphSearch;
+
+template <typename GraphType>
+class BFS;
+
+template <typename GraphType>
+class DFS;
+
 /* ============================= DETAIL TYPES ============================== */
-namespace details {
-template <typename OpType>
-struct NodeOpImpl;
-}
 
 }  // namespace mdg

@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <string>
-#include <typeinfo>
+#include <vector>
 
 using namespace mdg;
 
@@ -20,7 +20,7 @@ namespace internal {
 template <>
 struct traits<MyGraphType> : public traits<DirectedBase<MyGraphType>> {
   typedef std::string node_t;
-  typedef UndirectedNodeOp<MyGraphType> nodeop_t;
+  typedef DirectedNodeOp<MyGraphType> nodeop_t;
   typedef int edge_t;
   typedef EdgeOp<MyGraphType> edgeop_t;
 };
@@ -29,7 +29,7 @@ struct traits<MyGraphType> : public traits<DirectedBase<MyGraphType>> {
 
 class MyGraphType : public DirectedBase<MyGraphType> {
  public:
-  typedef MDGBase<MyGraphType> Base;
+  typedef DirectedBase<MyGraphType> Base;
   using Base::edge_type;
   using Base::edgeop_type;
   using Base::edgeset_type;
@@ -39,14 +39,23 @@ class MyGraphType : public DirectedBase<MyGraphType> {
 
   using Base::derived;
 
-  MyGraphType() : MDGBase() {}
+  MyGraphType() : Base() {}
+
+  nodeop_type node(int index) {
+    return {*this, index > 0 && index < m_nodes.size() ? index : -1};
+  }
+  node_type& nodeData(int index) { return m_nodes[index]; }
+
+ protected:
+  std::vector<node_type> m_nodes = {"a", "b", "c"};
+  std::vector<edge_type> m_edges;
 };
 
 int main() {
   MyGraphType a;
   // std::string data = a.nodeData(5);
 
-  std::cout << internal::traits<MyGraphType>::isDirected << "\n";
+  std::cout << a.node(0)->c_str() << "\n";
 
   return 0;
 }

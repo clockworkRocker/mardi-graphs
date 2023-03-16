@@ -22,6 +22,8 @@ class NodeOpBase {
   NodeOpBase(const NodeOpBase<Derived>& rhs);
   NodeOpBase(const NodeOpBase<Derived>&& rhs);
 
+  NodeOpBase& operator=(const NodeOpBase<Derived>& other);
+
  public:  // * -------- Accessors -------- *
   /// @brief Get a reference to the associated graph node
   node_type& operator*();
@@ -49,11 +51,15 @@ class NodeOpBase {
 
 /* ============================ IMPLEMENTATIONS ============================ */
 namespace mdg {
+template <typename Derived>
+inline NodeOpBase<Derived>::NodeOpBase(graph_type& graph, int index)
+    : m_graph(graph), m_index(index) {}
 
 template <typename Derived>
 typename NodeOpBase<Derived>::node_type& NodeOpBase<Derived>::operator*() {
   static_assert(THE_GRAPH_CLASS_SHOULD_BE_DERIVED_FROM_MDGBASE &&
                 internal::traits<graph_type>::isMardiGraph);
+
   return m_graph.nodeData(m_index);
 }
 
@@ -72,7 +78,7 @@ NodeOpBase<Derived>::operator->() {
   static_assert(THE_GRAPH_CLASS_SHOULD_BE_DERIVED_FROM_MDGBASE &&
                 internal::traits<graph_type>::isMardiGraph);
 
-  return nullptr;
+  return &(m_graph.nodeData(m_index));
 }
 
 }  // namespace mdg

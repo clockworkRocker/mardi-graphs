@@ -26,7 +26,7 @@ class UndirectedNodeOp : public NodeOpBase<UndirectedNodeOp<GraphType>> {
 }  // namespace mdg
 
 /* ================== BASE CLASS METHODS IMPLEMENTATIONS ================= */
-namespace mdg {
+/*namespace mdg {
 namespace details {
 template <typename GraphType>
 struct NodeOpImpl<UndirectedNodeOp<GraphType>> {
@@ -43,3 +43,4 @@ struct NodeOpImpl<UndirectedNodeOp<GraphType>> {
 
 }  // namespace details
 }  // namespace mdg
+*/

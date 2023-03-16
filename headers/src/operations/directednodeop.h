@@ -31,6 +31,10 @@ class DirectedNodeOp : public NodeOpBase<DirectedNodeOp<GraphType>> {
  public:  // * -------- Inherited methods -------- *
   using Base::operator*;
   using Base::operator->;
+  using Base::operator=;
+
+ public:
+  DirectedNodeOp(GraphType& graph, int index);
 
  public:  // * -------- New methods -------- *
   /// @brief Get the nodes that the incoming edges lead from to this node
@@ -45,6 +49,9 @@ class DirectedNodeOp : public NodeOpBase<DirectedNodeOp<GraphType>> {
   /// @brief Get the edges that go out of this node
   EdgeSetOp<GraphType> outgoing() const;
 };
+template <typename GraphType>
+inline DirectedNodeOp<GraphType>::DirectedNodeOp(GraphType& graph, int index)
+    : Base(graph, index) {}
 }  // namespace mdg
 
 #endif  // MDG_OPERATIONS_DIRECTEDNODEOP_H
