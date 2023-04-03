@@ -6,7 +6,7 @@
         - [x]  `MGDBase`
         - [x]  `traits<MDGBase>`
         - [x]  `traits<DirectedBase>`
-        - [ ]  `DirectedNodeOp` interface
+        - [x]  `DirectedNodeOp` interface
             - [x]  `NodeOpBase<DirectedNodeOp>`
               - [x]  REFCTOR: Remake the methods implementation according to the CRTP methodology. I seem to have messed up
             - [x]  `nodeop_traits<DirectedNodeOp>`
@@ -16,3 +16,5 @@
 * [ ]  `DFS<GraphType>`
     - [ ]  `DFSIterator`
     - [ ]  `SearchBase`
+# Utilities
+* [ ] Add an exception when trying to access a node with an index out of bounds

@@ -1,15 +1,18 @@
+#include <vector>
+
 #include "src/forward_declarations.h"
 #include "src/util/graphtraits.h"
 #include "src/util/nodeoptraits.h"
+#include "src/util/adjacencystorage.h"
 #include "src/mdgbase.h"
 #include "src/directedbase.h"
+#include "src/objectdigraph.h"
 #include "src/operations/nodeopbase.h"
 #include "src/operations/undirectednodeop.h"
 #include "src/operations/directednodeop.h"
 
 #include <iostream>
 #include <string>
-#include <vector>
 
 using namespace mdg;
 
@@ -30,12 +33,7 @@ struct traits<MyGraphType> : public traits<DirectedBase<MyGraphType>> {
 class MyGraphType : public DirectedBase<MyGraphType> {
  public:
   typedef DirectedBase<MyGraphType> Base;
-  using Base::edge_type;
-  using Base::edgeop_type;
-  using Base::edgeset_type;
-  using Base::node_type;
-  using Base::nodeop_type;
-  using Base::nodeset_type;
+  MDG_COMMON_TYPEDEFS(MyGraphType)
 
   using Base::derived;
 
@@ -52,8 +50,8 @@ class MyGraphType : public DirectedBase<MyGraphType> {
 };
 
 int main() {
-  MyGraphType a;
-  // std::string data = a.nodeData(5);
+  ObjectDigraph<std::string, int> a;
+  std::string data = a.nodeData(5);
 
   std::cout << a.node(0)->c_str() << "\n";
 

@@ -6,6 +6,9 @@ struct traits;
 
 template <typename NodeOpType>
 struct nodeop_traits;
+
+template <int StorageType>
+class AdjacencyStorage;
 }  // namespace internal
 
 /* ============================== GRAPH TYPES ============================= */
@@ -15,17 +18,19 @@ class MDGBase;
 template <typename Derived>
 class UndirectedBase;
 
+template <int StorageType>
 class Graph;
 
-template <typename NodeType, typename EdgeType>
+template <typename NodeType, typename EdgeType, int StorageType>
 class ObjectGraph;
 
 template <typename Derived>
 class DirectedBase;
 
+template <int StorageType>
 class Digraph;
 
-template <typename NodeType, typename EdgeType>
+template <typename NodeType, typename EdgeType, int StorageType>
 class ObjectDigraph;
 
 /* ============================== SETS TYPES =============================== */

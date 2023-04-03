@@ -1,3 +1,20 @@
+#ifndef MDG_COMMON_TYPEDEFS
+#define MDG_COMMON_TYPEDEFS(GraphName)                                  \
+  typedef typename internal::traits<GraphName>::node_t node_type;       \
+  typedef typename internal::traits<GraphName>::edge_t edge_type;       \
+  typedef typename internal::traits<GraphName>::nodeop_t nodeop_type;   \
+  typedef typename internal::traits<GraphName>::edgeop_t edgeop_type;   \
+  typedef typename internal::traits<GraphName>::nodeset_t nodeset_type; \
+  typedef typename internal::traits<GraphName>::edgeset_t edgeset_type;
+#endif
+
+#ifndef MDG_COMMON_FRIENDS
+#define MDG_COMMON_FRIENDS(GraphName) \
+  friend nodeop_type;                 \
+  friend edgeop_type;                 \
+  friend nodeset_type;                \
+  friend edgeset_type;
+#endif
 namespace mdg {
 
 enum StorageType {

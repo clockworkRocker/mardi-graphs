@@ -104,6 +104,12 @@ class MDGBase {
   template <typename... Args>
   int emplaceNode(Args... args);
 
+  /**
+   * @brief Add an edge connecting the two given nodes defined by their IDs
+   * @return The ID of the edge created or -1 of creation fails
+   */
+  int addEdge(int from, int to);
+
  public:  // * ----------- Searches -------- *
   /**
    * @return An iterable object that walks the nodes of the graph from the given
@@ -158,13 +164,19 @@ inline const typename MDGBase<Derived>::nodeop_type MDGBase<Derived>::node(
 template <typename Derived>
 inline typename MDGBase<Derived>::node_type& MDGBase<Derived>::nodeData(
     int index) {
-  return *(derived().node(index));
+  return derived().nodeData(index);
 }
 
 template <typename Derived>
 inline const typename MDGBase<Derived>::node_type& MDGBase<Derived>::nodeData(
     int index) const {
-  return *(derived().node(index));
+  return derived().nodeData(index);
+}
+
+template <typename Derived>
+inline typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::edge(int from,
+                                                                     int to) {
+  return derived().edge(from, to);
 }
 
 template <typename Derived>
@@ -180,9 +192,30 @@ inline const typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::edge(
 }
 
 template <typename Derived>
+inline int MDGBase<Derived>::size() const {
+  return derived().size();
+}
+
+template <typename Derived>
+inline int MDGBase<Derived>::numNodes() const {
+  return derived().numNodes();
+}
+
+template <typename Derived>
+inline int MDGBase<Derived>::numEdges() const {
+  return derived().numEdges();
+}
+
+template <typename Derived>
 inline typename MDGBase<Derived>::nodeop_type MDGBase<Derived>::nullNode()
     const {
   return nodeop_type(*this, -1);
+}
+
+template <typename Derived>
+inline typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::nullEdge()
+    const {
+  return edgeop_type(*this, -1);
 }
 
 }  // namespace mdg
