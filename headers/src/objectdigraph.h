@@ -11,7 +11,12 @@ struct traits<ObjectDigraph<NodeType, EdgeType, StorageType>>
   typedef NodeType node_t;
   typedef EdgeType edge_t;
 
-  enum { storageType = StorageType, hasDirectAccess = true };
+  enum {
+    storageType = StorageType,
+    hasDirectAccess = true,
+    hasNodeObjects = true,
+    hasEdgeObjects = true
+  };
 };
 }  // namespace internal
 }  // namespace mdg
@@ -53,7 +58,7 @@ class ObjectDigraph
  protected:
   std::vector<node_type> m_nodes;
   std::vector<edge_type> m_edges;
-  internal::AdjacencyStorage<StorageType> m_adj;
+  internal::AdjacencyStorage<ThisDerived, StorageType> m_adj;
 };
 }  // namespace mdg
 

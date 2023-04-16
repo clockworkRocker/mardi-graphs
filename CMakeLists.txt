@@ -12,4 +12,7 @@ set(MARDIGRAPHS_INCLUDE_DIRS
 
 include_directories(${MARDIGRAPHS_INCLUDE_DIRS})
 
+enable_testing()
+
 add_executable(test_build test/test_build.cpp)
+add_executable(test_adjmatrix test/test_adjacencyMatrix.cpp)

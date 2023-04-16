@@ -1,18 +1,7 @@
-#include <vector>
-
-#include "src/forward_declarations.h"
-#include "src/util/graphtraits.h"
-#include "src/util/nodeoptraits.h"
-#include "src/util/adjacencystorage.h"
-#include "src/mdgbase.h"
-#include "src/directedbase.h"
-#include "src/objectdigraph.h"
-#include "src/operations/nodeopbase.h"
-#include "src/operations/undirectednodeop.h"
-#include "src/operations/directednodeop.h"
 
 #include <iostream>
 #include <string>
+#include <MardiGraphs/Core>
 
 using namespace mdg;
 

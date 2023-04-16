@@ -7,7 +7,7 @@ struct traits;
 template <typename NodeOpType>
 struct nodeop_traits;
 
-template <int StorageType>
+template <typename GraphType, int StorageType>
 class AdjacencyStorage;
 }  // namespace internal
 

@@ -35,6 +35,8 @@ struct baseTraits {
   enum {
     isMardiGraph = false,
     isDirected = false,
+    hasNodeObjects = false,
+    hasEdgeObjects = false,
     hasDirectAccess = false,
     storageType = None
   };
