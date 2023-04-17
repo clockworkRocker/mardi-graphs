@@ -5,7 +5,7 @@
 using namespace mdg::internal;
 
 int main() {
-  enum { InitSize = 3, ExpandedSize = 5 };
+  enum { InitSize = 6, ExpandedSize = 5 };
 
   AdjacencyStorage<mdg::ObjectDigraph<int, int, mdg::DenseMatrix>,
                    mdg::DenseMatrix>

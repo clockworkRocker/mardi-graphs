@@ -39,7 +39,7 @@ class MyGraphType : public DirectedBase<MyGraphType> {
 };
 
 int main() {
-  ObjectDigraph<std::string, int> a;
+  ObjectDigraph<std::string, int> a(6);
   std::string data = a.nodeData(5);
 
   std::cout << a.node(0)->c_str() << "\n";

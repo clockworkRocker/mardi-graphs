@@ -17,7 +17,6 @@ struct traits<DirectedBase<Derived>> : public traits<MDGBase<Derived>> {
 /* ============================ PUBLIC INTERFACE =========================== */
 
 namespace mdg {
-/***/
 template <typename Derived>
 class DirectedBase : public MDGBase<Derived> {
  public:  // * Types

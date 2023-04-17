@@ -105,8 +105,9 @@ class MDGBase {
   int emplaceNode(Args... args);
 
   /**
-   * @brief Add an edge connecting the two given nodes defined by their IDs
-   * @return The ID of the edge created or -1 of creation fails
+   * @brief Add a default-constructed edge connecting the two given nodes
+   *        defined by their IDs
+   * @return The ID of the edge created or -1 if creation fails
    */
   int addEdge(int from, int to);
 
@@ -152,13 +153,13 @@ inline const Derived& MDGBase<Derived>::derived() const {
 template <typename Derived>
 inline typename MDGBase<Derived>::nodeop_type MDGBase<Derived>::node(
     int index) {
-  return derived().node(index);
+  return nodeop_type(derived(), index);
 }
 
 template <typename Derived>
 inline const typename MDGBase<Derived>::nodeop_type MDGBase<Derived>::node(
     int index) const {
-  return derived().node(index);
+  return nodeop_type(derived(), index);
 }
 
 template <typename Derived>
@@ -176,19 +177,19 @@ inline const typename MDGBase<Derived>::node_type& MDGBase<Derived>::nodeData(
 template <typename Derived>
 inline typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::edge(int from,
                                                                      int to) {
-  return derived().edge(from, to);
+  return edgeop_type(derived(), from, to);
 }
 
 template <typename Derived>
 inline typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::edge(
     int index) {
-  return derived().edge(index);
+  return edgeop_type(derived(), index);
 }
 
 template <typename Derived>
 inline const typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::edge(
     int index) const {
-  return derived().edge(index);
+  return edgeop_type(derived(), index);
 }
 
 template <typename Derived>
@@ -216,6 +217,16 @@ template <typename Derived>
 inline typename MDGBase<Derived>::edgeop_type MDGBase<Derived>::nullEdge()
     const {
   return edgeop_type(*this, -1);
+}
+
+template <typename Derived>
+inline DFS<Derived> MDGBase<Derived>::dfs(unsigned from) {
+  return DFS<Derived>(derived());
+}
+
+template <typename Derived>
+inline BFS<Derived> MDGBase<Derived>::bfs(unsigned from) {
+  return BFS<Derived>(derived());
 }
 
 }  // namespace mdg
