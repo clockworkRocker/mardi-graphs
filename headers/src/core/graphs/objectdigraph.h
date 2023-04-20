@@ -81,6 +81,8 @@ class ObjectDigraph
 };
 }  // namespace mdg
 
+/* ======================== METHODS IMPLEMENTATIONS ======================== */
+
 namespace mdg {
 template <typename NodeType, typename EdgeType, int StorageType>
 inline ObjectDigraph<NodeType, EdgeType, StorageType>::ObjectDigraph(
@@ -111,6 +113,20 @@ ObjectDigraph<NodeType, EdgeType, StorageType>::nodeData(int index) const {
 
   return m_nodes[index];
 }
+template <typename NodeType, typename EdgeType, int StorageType>
+inline int ObjectDigraph<NodeType, EdgeType, StorageType>::addEdge(
+    unsigned from,
+    unsigned to,
+    const edge_type& edge) {
+  auto iter = std::find(m_edges.begin(), m_edges.end(), edge);
+  if (!m_adj.connect(from, to, iter - m_edges.begin()))
+    return -1;
+
+  m_edges.emplace_back(edge);
+  return m_edges.size() - 1;
+}
 }  // namespace mdg
+
+/* ==================== NODE OPERATION IMPLEMENTATIONS ===================== */
 
 #endif  // MDG_OBJECTDIGRAPH_H
