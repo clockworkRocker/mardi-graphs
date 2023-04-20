@@ -13,9 +13,9 @@ namespace mdg {
 template <typename Derived>
 class NodeOpBase {
  public:  // * -------- Types --------
-  typedef typename internal::nodeop_traits<Derived>::graph_t graph_type;
-  typedef typename internal::nodeop_traits<Derived>::node_t node_type;
-  typedef typename internal::nodeop_traits<Derived>::edge_t edge_type;
+  typedef typename internal::traits<Derived>::graph_t graph_type;
+  typedef typename internal::traits<Derived>::node_t node_type;
+  typedef typename internal::traits<Derived>::edge_t edge_type;
 
  public:  // * -------- Constructors -------- *
   NodeOpBase(graph_type& graph, int index = -1);
@@ -25,6 +25,9 @@ class NodeOpBase {
   NodeOpBase& operator=(const NodeOpBase<Derived>& other);
 
  public:  // * -------- Accessors -------- *
+  Derived& derived();
+  const Derived& derived() const;
+
   /// @brief Get a reference to the associated graph node
   node_type& operator*();
 
@@ -54,6 +57,16 @@ namespace mdg {
 template <typename Derived>
 inline NodeOpBase<Derived>::NodeOpBase(graph_type& graph, int index)
     : m_graph(graph), m_index(index) {}
+
+template <typename Derived>
+inline Derived& NodeOpBase<Derived>::derived() {
+  return *static_cast<Derived*>(this);
+}
+
+template <typename Derived>
+inline const Derived& NodeOpBase<Derived>::derived() const {
+  return *static_cast<const Derived*>(this);
+}
 
 template <typename Derived>
 typename NodeOpBase<Derived>::node_type& NodeOpBase<Derived>::operator*() {

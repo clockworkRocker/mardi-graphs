@@ -39,10 +39,17 @@ class MyGraphType : public DirectedBase<MyGraphType> {
 };
 
 int main() {
-  ObjectDigraph<std::string, int> a(6);
-  std::string data = a.nodeData(5);
+  ObjectDigraph<std::string, std::string> a(6);
+  std::vector<int> indices(3);
 
-  std::cout << a.node(0)->c_str() << "\n";
+  indices[0] = a.addEdge(0, 1, "hallo");
+  indices[1] = a.addEdge(0, 2, "hallo");
+  indices[2] = a.addEdge(0, 3, "hallo again");
+
+  for (auto& i : indices)
+    std::cout << ' ' << i;
+
+  std::cout << std::endl;
 
   return 0;
 }

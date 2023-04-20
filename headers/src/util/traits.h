@@ -24,7 +24,12 @@ enum StorageType {
   SparseMatrix,
   List
 };
+
 namespace internal {
+
+/**
+ * @brief Base traits structure that has all the necessary enums and types
+ */
 template <typename GraphType>
 struct baseTraits {
   typedef int node_t;
@@ -40,6 +45,18 @@ struct baseTraits {
     hasDirectAccess = false,
     storageType = None
   };
+};
+
+/**
+ * @brief Base traits structure for node operation objects
+ */
+template <typename GraphType>
+struct BaseNodeOpTraits {
+  typedef GraphType graph_t;
+  typedef typename traits<GraphType>::node_t node_t;
+  typedef typename traits<GraphType>::edge_t edge_t;
+  typedef typename traits<GraphType>::nodeset_t nodeset_t;
+  typedef typename traits<GraphType>::edgeset_t edgeset_t;
 };
 }  // namespace internal
 }  // namespace mdg

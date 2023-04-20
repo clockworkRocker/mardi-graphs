@@ -1,0 +1,4 @@
+#ifndef MDG_NODESETOP_H
+#define MDG_NODESETOP_H
+
+#endif  // MDG_NODESETOP_H

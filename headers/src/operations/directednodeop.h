@@ -6,10 +6,7 @@
 namespace mdg {
 namespace internal {
 template <typename GraphType>
-struct nodeop_traits<DirectedNodeOp<GraphType>> {
-  typedef GraphType graph_t;
-  typedef typename GraphType::node_type node_t;
-  typedef typename GraphType::edge_type edge_t;
+struct traits<DirectedNodeOp<GraphType>> : public BaseNodeOpTraits<GraphType> {
 };
 }  // namespace internal
 }  // namespace mdg
