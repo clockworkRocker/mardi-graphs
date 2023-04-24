@@ -20,7 +20,6 @@ class NodeOpBase {
  public:  // * -------- Constructors -------- *
   NodeOpBase(graph_type& graph, int index = -1);
   NodeOpBase(const NodeOpBase<Derived>& rhs);
-  NodeOpBase(const NodeOpBase<Derived>&& rhs);
 
   NodeOpBase& operator=(const NodeOpBase<Derived>& other);
 
@@ -57,6 +56,18 @@ namespace mdg {
 template <typename Derived>
 inline NodeOpBase<Derived>::NodeOpBase(graph_type& graph, int index)
     : m_graph(graph), m_index(index) {}
+
+template <typename Derived>
+inline NodeOpBase<Derived>::NodeOpBase(const NodeOpBase<Derived>& rhs)
+    : m_graph(rhs.m_graph), m_index(rhs.m_index) {}
+
+template <typename Derived>
+inline NodeOpBase<Derived>& NodeOpBase<Derived>::operator=(
+    const NodeOpBase<Derived>& other) {
+  m_graph = other.m_graph;
+  m_index = other.m_index;
+  return *this;
+}
 
 template <typename Derived>
 inline Derived& NodeOpBase<Derived>::derived() {
