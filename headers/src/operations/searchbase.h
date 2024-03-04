@@ -1,4 +1,0 @@
-#ifndef MDG_SEARCHBASE_H
-#define MDG_SEARCHBASE_H
-
-#endif  // MDG_SEARCHBASE_H
